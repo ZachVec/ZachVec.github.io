@@ -6,7 +6,7 @@ on:
     types: [docs-updated]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -56,3 +56,9 @@ jobs:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Sync submodule pointer
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: update ccjieba submodule pointer'
+          file_pattern: _docsrc/ccjieba
