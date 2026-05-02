@@ -24,12 +24,12 @@ jobs:
           mdbook-version: '0.4.44'
 
       - name: Install Doxygen
-        run: sudo apt-get install -y doxygen
+        run: sudo apt-get install -y doxygen graphviz
 
       - name: Build docs
         run: |
           mdbook build _docsrc/ccjieba/docs
-          doxygen _docsrc/ccjieba/docs/Doxyfile
+          cd _docsrc/ccjieba/docs && doxygen Doxyfile
           rm -rf projects/ccjieba
           cp -r _docsrc/ccjieba/docs/book projects/ccjieba
           cp -r _docsrc/ccjieba/docs/doxygen/html projects/ccjieba/doxygen
