@@ -15,6 +15,7 @@ minima:
 markdown: kramdown
 exclude:
   - _docsrc
+  - projects
   - vendor
   - Gemfile
   - Gemfile.lock

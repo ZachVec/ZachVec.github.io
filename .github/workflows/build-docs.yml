@@ -6,20 +6,27 @@ on:
     types: [docs-updated]
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: true
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Update submodule to latest
-        run: |
-          git submodule update --remote _docsrc/ccjieba
+      - name: Update submodule
+        run: git submodule update --remote _docsrc/ccjieba
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v2
@@ -29,17 +36,23 @@ jobs:
       - name: Install Doxygen
         run: sudo apt-get install -y doxygen graphviz
 
-      - name: Build docs
+      - name: Build project docs
         run: |
           mdbook build _docsrc/ccjieba/docs
           (cd _docsrc/ccjieba/docs && doxygen Doxyfile)
-          rm -rf projects/ccjieba
-          mkdir -p projects
-          cp -r _docsrc/ccjieba/docs/book projects/ccjieba
-          cp -r _docsrc/ccjieba/docs/doxygen/html projects/ccjieba/doxygen
 
-      - name: Commit and push
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'docs: update ccjieba documentation'
-          file_pattern: 'projects/ccjieba/** _docsrc/ccjieba'
+      - name: Build Jekyll site
+        uses: actions/jekyll-build-pages@v1
+
+      - name: Merge docs into site
+        run: |
+          mkdir -p _site/projects/ccjieba
+          cp -r _docsrc/ccjieba/docs/book/* _site/projects/ccjieba/
+          cp -r _docsrc/ccjieba/docs/doxygen/html _site/projects/ccjieba/doxygen
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
