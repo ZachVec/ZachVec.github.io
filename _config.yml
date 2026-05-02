@@ -13,6 +13,13 @@ minima:
 
 # Build settings
 markdown: kramdown
+exclude:
+  - _docsrc
+  - vendor
+  - Gemfile
+  - Gemfile.lock
+  - .gitignore
+  - .gitmodules
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
