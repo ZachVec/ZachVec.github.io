@@ -1,0 +1,11 @@
+<map id="ccjieba::Jieba" name="ccjieba::Jieba">
+<area shape="rect" id="Node000001" title=" " alt="" coords="351,84,459,109"/>
+<area shape="rect" id="Node000002" href="$classccjieba_1_1HMModel.html" title=" " alt="" coords="42,5,181,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,260,41,328,59,380,82,378,86,326,65,259,46,194,33"/>
+<area shape="rect" id="Node000003" href="$classccjieba_1_1Trie.html" title=" " alt="" coords="62,55,161,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="175,71,351,89,350,94,175,76"/>
+<area shape="rect" id="Node000004" href="$classccjieba_1_1InverseDocumentFrequence.html" title=" " alt="" coords="16,105,207,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="220,118,326,109,350,105,351,110,327,114,221,123"/>
+<area shape="rect" id="Node000005" href="$classccjieba_1_1StopWordsDictionary.html" title=" " alt="" coords="5,169,217,195"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="222,164,274,153,326,137,356,123,383,107,385,112,359,128,328,142,276,158,223,169"/>
+</map>
