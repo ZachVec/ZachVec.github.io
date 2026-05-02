@@ -31,6 +31,7 @@ jobs:
           mdbook build _docsrc/ccjieba/docs
           (cd _docsrc/ccjieba/docs && doxygen Doxyfile)
           rm -rf projects/ccjieba
+          mkdir -p projects
           cp -r _docsrc/ccjieba/docs/book projects/ccjieba
           cp -r _docsrc/ccjieba/docs/doxygen/html projects/ccjieba/doxygen
 
