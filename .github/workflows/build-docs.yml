@@ -46,9 +46,9 @@ jobs:
 
       - name: Merge docs into site
         run: |
-          mkdir -p _site/projects/ccjieba
-          cp -r _docsrc/ccjieba/docs/book/* _site/projects/ccjieba/
-          cp -r _docsrc/ccjieba/docs/doxygen/html _site/projects/ccjieba/doxygen
+          sudo mkdir -p _site/projects/ccjieba
+          sudo cp -r _docsrc/ccjieba/docs/book/* _site/projects/ccjieba/
+          sudo cp -r _docsrc/ccjieba/docs/doxygen/html _site/projects/ccjieba/doxygen
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
