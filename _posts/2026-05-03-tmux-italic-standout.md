@@ -84,6 +84,18 @@ use=xterm-256color, use=screen-256color,
 
 它以 `screen-256color` 为基础，再用 `xterm-256color` 覆盖（后者正确定义了斜体和反色），最后显式指定 `sitm=\E[3m` / `smso=\E[7m` 确保万无一失。`Ms@` 则禁用了 `screen` 对颜色切换的干扰行为。
 
+## 哪些系统会受影响
+
+这个问题本质上是历史遗留，主要出现在 **2017 年之前**的系统上。ncurses 在 2017 年才引入独立的 `tmux-256color` terminfo 条目，正确分离了斜体和反色。
+
+以下场景仍可能遇到：
+
+- **老系统**：CentOS 7、旧版 macOS 等自带的 ncurses 版本过老，没有 `tmux-256color`
+- **SSH 到旧服务器**：本地 `$TERM` 可能被 propagate 为 `screen-256color`（尤其当跳板机或远端 tmux 配置陈旧时）
+- **tmux 配置显式设了旧 TERM**：如果 `~/.tmux.conf` 里有 `set -g default-terminal "screen-256color"`，问题会被重新引入
+
+现代发行版（Ubuntu 18.04+、Debian 10+、macOS 10.14+）的 ncurses 已自带 `tmux-256color`，一般不会有这个问题。
+
 ---
 
 *参考：[tmux/tmux#1202](https://github.com/tmux/tmux/issues/1202)，[ncurses-bug 邮件列表](https://lists.gnu.org/archive/html/bug-ncurses/2017-11/msg00010.html)*
