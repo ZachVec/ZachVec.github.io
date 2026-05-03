@@ -21,26 +21,18 @@ echo -e "\e[3mitalic\e[23m"
 
 ### 一、安装修正后的 terminfo
 
-创建一个 terminfo 源文件 `/tmp/tmux-256color.terminfo`，内容如下：
+通过 heredoc 直接传给 `tic` 编译安装，无需创建临时文件：
 
-```
+```bash
+cat <<'EOF' | tic -x -
 tmux-256color|tmux with 256 colors,
   ritm=\E[23m, rmso=\E[27m, sitm=\E[3m, smso=\E[7m, Ms@,
   khome=\E[1~, kend=\E[4~,
   use=xterm-256color, use=screen-256color,
+EOF
 ```
 
-然后用 `tic` 编译安装到用户目录：
-
-```bash
-tic -x /tmp/tmux-256color.terminfo
-```
-
-安装完成后删除临时文件：
-
-```bash
-rm /tmp/tmux-256color.terminfo
-```
+`tic -x -` 中的 `-` 表示从 stdin 读取，`'EOF'` 加引号防止 shell 对 `\E` 做转义插值。
 
 `tic -x` 会将编译后的 terminfo 写入 `~/.terminfo/`，不需要 sudo。
 
